@@ -9,7 +9,7 @@ using Platinio.UI;
 /// <summary>
 /// Code to handle generic scroll list, like leaderboards or achievements
 /// </summary>
-public class Scroller : MonoBehaviour , IPointerDownHandler , IPointerUpHandler , IPointerExitHandler
+public class Scroller : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerExitHandler
 {
     public enum ScrollMode
     {
@@ -51,22 +51,22 @@ public class Scroller : MonoBehaviour , IPointerDownHandler , IPointerUpHandler 
         SetupScrollingComponets();
 
         //set listener for end of list
-        scroll.onValueChanged.AddListener( delegate (Vector2 v)
+        scroll.onValueChanged.AddListener(delegate (Vector2 v)
          {
              if (userInteraction && scroll.velocity.magnitude > scrollVelocityThreshold)
              {
-                 
+
                  if (shouldAlingCoroutine != null)
-                     StopCoroutine( shouldAlingCoroutine );
-                 shouldAlingCoroutine = StartCoroutine( ShouldAlingRoutine() );
+                     StopCoroutine(shouldAlingCoroutine);
+                 shouldAlingCoroutine = StartCoroutine(ShouldAlingRoutine());
              }
-             
+
 
              if (GetNormalizedPosition() <= 0.0f && onReachEndOfList != null)
              {
                  onReachEndOfList();
              }
-         } );
+         });
     }
 
     private void Start()
@@ -79,7 +79,7 @@ public class Scroller : MonoBehaviour , IPointerDownHandler , IPointerUpHandler 
     {
         for (int n = 0; n < gridLayout.transform.childCount; n++)
         {
-            AddElement( gridLayout.transform.GetChild(n).gameObject );
+            AddElement(gridLayout.transform.GetChild(n).gameObject);
         }
     }
 
@@ -103,7 +103,7 @@ public class Scroller : MonoBehaviour , IPointerDownHandler , IPointerUpHandler 
     {
         element.transform.parent = gridLayout.transform;
         element.transform.localScale = Vector3.one;
-        elements.Add( element );
+        elements.Add(element);
         ResizeContentRect();
     }
 
@@ -124,7 +124,7 @@ public class Scroller : MonoBehaviour , IPointerDownHandler , IPointerUpHandler 
         Vector2 pos = elements[0].GetComponent<RectTransform>().FromAnchoredPositionToAbsolutePosition(viewRect);
         Debug.Log(pos);
     }
-    
+
 
     /// <summary>
     /// Resizes the content rect to fit new elements
@@ -140,20 +140,20 @@ public class Scroller : MonoBehaviour , IPointerDownHandler , IPointerUpHandler 
         }
         else if (scrollMode == ScrollMode.Vertical)
         {
-            size = (( gridLayout.cellSize.y + gridLayout.spacing.y ) * elements.Count) + gridLayout.padding.top;
+            size = ((gridLayout.cellSize.y + gridLayout.spacing.y) * elements.Count) + gridLayout.padding.top;
         }
-        
+
 
         //resize contentRect to fit new element
         if (size > minSize)
         {
             if (scrollMode == ScrollMode.Vertical)
             {
-                contentRect.SetSizeWithCurrentAnchors( RectTransform.Axis.Vertical, size );
+                contentRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, size);
             }
             else if (scrollMode == ScrollMode.Horizontal)
             {
-                contentRect.SetSizeWithCurrentAnchors( RectTransform.Axis.Horizontal, size );
+                contentRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, size);
             }
 
 
@@ -162,11 +162,11 @@ public class Scroller : MonoBehaviour , IPointerDownHandler , IPointerUpHandler 
 
             if (scrollMode == ScrollMode.Vertical)
             {
-                contentRect.anchoredPosition = new Vector2( pos.x, pos.y - ( ( gridLayout.cellSize.y + gridLayout.spacing.y ) / 2.0f ) );
+                contentRect.anchoredPosition = new Vector2(pos.x, pos.y - ((gridLayout.cellSize.y + gridLayout.spacing.y) / 2.0f));
             }
             else if (scrollMode == ScrollMode.Horizontal)
             {
-                contentRect.anchoredPosition = new Vector2( pos.x + ( ( gridLayout.cellSize.x + gridLayout.spacing.x ) / 2.0f ), pos.y );
+                contentRect.anchoredPosition = new Vector2(pos.x + ((gridLayout.cellSize.x + gridLayout.spacing.x) / 2.0f), pos.y);
             }
 
         }
@@ -181,11 +181,11 @@ public class Scroller : MonoBehaviour , IPointerDownHandler , IPointerUpHandler 
     {
         for (int n = 0; n < elements.Count; n++)
         {
-            Destroy( elements[n].gameObject );
+            Destroy(elements[n].gameObject);
         }
 
         elements = new List<GameObject>();
-        contentRect.SetSizeWithCurrentAnchors( RectTransform.Axis.Vertical, minSize );
+        contentRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, minSize);
     }
 
     public void OnPointerDown(PointerEventData eventData)

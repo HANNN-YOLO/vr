@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace VRBeats.UI 
+namespace VRBeats.UI
 {
     public class TracksUIList : MonoBehaviour
     {
@@ -25,12 +25,15 @@ namespace VRBeats.UI
 
         private void PopulateList()
         {
+            Debug.Log("Hello, Unity Console!");
+            Debug.Log("Database Length: " + database.TrackList.Length);
+
             for (int n = 0; n < database.TrackList.Length; n++)
             {
                 int index = n;
-                TrackSlot slot = Instantiate(trackSlotPrefab , contentParent);
+                TrackSlot slot = Instantiate(trackSlotPrefab, contentParent);
                 slot.transform.localScale = Vector3.one;
-                slot.Construct(database.TrackList[n] , delegate (TrackInfo info){ OnSlotClick(info ,index); });
+                slot.Construct(database.TrackList[n], delegate (TrackInfo info) { OnSlotClick(info, index); });
                 scroller.AddElement(slot.gameObject);
             }
         }
@@ -44,7 +47,7 @@ namespace VRBeats.UI
             }
         }
 
-        private void OnSlotClick(TrackInfo trackInfo , int index)
+        private void OnSlotClick(TrackInfo trackInfo, int index)
         {
             if (sceneIsLoading)
                 return;
@@ -52,7 +55,7 @@ namespace VRBeats.UI
             sceneIsLoading = true;
             PlayableManager.SetSelectedTrackIndex(index);
             string sceneName = trackInfo.Mode == Mode.Boxing ? boxingStyleSceneName : saberStyleScenName;
-            SceneManager.LoadScene( sceneName );
+            SceneManager.LoadScene(sceneName);
         }
 
 

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: TracksDatabase
   m_EditorClassIdentifier: 
   trackList:
-  - playableAsset: {fileID: 11400000, guid: 23be2b7c74a9ac14cbc4255a9e7459e9, type: 2}
+  - playableAsset: {fileID: 11400000, guid: 3b182968532edc646b9d0682d9da7a91, type: 2}
     potrait: {fileID: 21300000, guid: dfbe27fe01bee5a46a388bed192beb11, type: 3}
     Mode: 0
-    songName: Only Today
-    author: JKT48
+    songName: Monitor Ketua
+    author: Eko Show

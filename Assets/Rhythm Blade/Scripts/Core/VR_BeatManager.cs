@@ -12,7 +12,7 @@ namespace VRBeats
         [SerializeField] private Transform player = null;
         [SerializeField] private VR_BeatSettings settings = null;
         [SerializeField] private GameEvent onGameOver = null;
-        
+
         private AudioManager audioManager = null;
         private EnviromentController enviromentController = null;
         private PlayableDirector playableDirector = null;
@@ -39,7 +39,7 @@ namespace VRBeats
             base.Start();
             playerConsecutiveMiss = 0;
         }
-        
+
 
         public Color GetColorFromColorSide(ColorSide side)
         {
@@ -54,41 +54,45 @@ namespace VRBeats
         private int frame = 0;
         private void Update()
         {
-            frame++;                       
+            frame++;
         }
 
-        public void Spawn(Spawneable spawneable , SpawnEventInfo info)
+        public void Spawn(Spawneable spawneable, SpawnEventInfo info)
         {
+
             if (!isGameRunning)
                 return;
-           
-            Vector3 finalPosition = CalculateSpawnPosition( info.position);
+
+            Vector3 finalPosition = CalculateSpawnPosition(info.position);
             Vector3 travelOffset = Vector3.forward * -settings.TargetTravelDistance;
             Vector3 spawnPosition = finalPosition - travelOffset;
 
-            Spawneable clone = Instantiate( spawneable , spawnPosition , Quaternion.Euler( info.rotation ) );
+            Spawneable clone = Instantiate(spawneable, spawnPosition, Quaternion.Euler(info.rotation));
             SetSpeedRelativeToPlayZone(info);
             clone.Construct(info);
-            
+
             Vector3 finalScale = clone.transform.localScale;
             clone.transform.localScale = Vector3.zero;
 
-            
+
             clone.transform.Move(finalPosition, settings.TargetTravelTime).SetEase(settings.TargetTravelEase).SetOnComplete(delegate
             {
                 clone.OnSpawn();
-            }).SetUpdateMode(Platinio.TweenEngine.UpdateMode.Update);     
+            }).SetUpdateMode(Platinio.TweenEngine.UpdateMode.Update);
 
-            
+
             clone.transform.ScaleTween(finalScale, settings.TargetTravelTime).SetEase(settings.TargetTravelEase);
+
+            Debug.Log("Object Spawned");
+
 
         }
 
         private void SetSpeedRelativeToPlayZone(SpawnEventInfo info)
         {
-            info.speedMultiplier = (int) Mathf.Sign(playZone.transform.forward.z * -1.0f);
+            info.speedMultiplier = (int)Mathf.Sign(playZone.transform.forward.z * -1.0f);
         }
-       
+
         private Vector3 CalculateSpawnPosition(Vector3 relativePosition)
         {
             Vector3 pos = CalculatePlayZoneCenter();
@@ -115,13 +119,14 @@ namespace VRBeats
 
             isGameRunning = false;
             //slowdown the music to 0 and stop the playabledirector
-            audioManager.BlendAudioMixerPitch(1.0f , 0.0f).SetOnComplete( delegate {
+            audioManager.BlendAudioMixerPitch(1.0f, 0.0f).SetOnComplete(delegate
+            {
                 if (playableDirector != null)
                     playableDirector.Stop();
-                } 
+            }
             ).SetOwner(gameObject);
             enviromentController.TurnLightsOff();
-            
+
         }
 
         public void RestartLevel()

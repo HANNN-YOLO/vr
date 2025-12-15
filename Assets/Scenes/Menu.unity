@@ -910,7 +910,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scroll: {fileID: 392294622}
   gridLayout: {fileID: 1250638597}
-  viewRect: {fileID: 2067451709}
+  viewRect: {fileID: 296801849}
   scrollMode: 1
   shouldAling: 0
   scrollVelocityThreshold: 0.2
@@ -1626,7 +1626,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 90.1}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1250638596
@@ -2069,7 +2069,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bba6b1c374675f240a81bc38489d0e40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewRect: {fileID: 0}
+  viewRect: {fileID: 17447289}
   moveTime: 1
   ease: 16
   onIndexValueChange:
