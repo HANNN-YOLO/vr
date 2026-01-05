@@ -24,7 +24,7 @@ namespace VRBeats
 
             if (useSpark)
             {
-                if (sparkPrefab == null) return;
+                //if (sparkPrefab == null) return;
                 
                 Color desireColor = VR_BeatManager.instance.GetColorFromColorSide(colorSide);
                 Spark spark = Instantiate(sparkPrefab, transform.position, Quaternion.identity);
